@@ -1,5 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 import requests
+from urllib.parse import urlencode
 
 ghidra_server_url = "http://localhost:8080"
 
@@ -11,8 +12,7 @@ def safe_get(endpoint: str, params: dict = None) -> list:
     """
     if params is None:
         params = {}
-    qs = [f"{k}={v}" for k, v in params.items()]
-    query_string = "&".join(qs)
+    query_string = urlencode(params)
     url = f"{ghidra_server_url}/{endpoint}"
     if query_string:
         url += "?" + query_string
